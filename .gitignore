@@ -1,0 +1,40 @@
+# Environment variables (SENSITIVE - NEVER COMMIT)
+.env
+.env.*
+*.env
+.env.local
+.env.production
+.env.development
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories
+.vscode/
+.idea/
+.DS_Store
+
+# MacOS
+__MACOSX/
+
+# Build outputs
+dist/
+build/
+.cache/
+
+# Optional npm cache
+.npm
+.eslintcache
+
+# Exclude files with secrets
+**/WebRTC/
+**/twil.js
