@@ -33,7 +33,7 @@ export const NotificationProvider = ({ children }) => {
         return;
       }
 
-      const response = await axios.get('http://localhost:3000/api/orders/my-orders', {
+      const response = await axios.get('/api/orders/my-orders', {
         headers: { Authorization: `Bearer ${token}` }
       });
 

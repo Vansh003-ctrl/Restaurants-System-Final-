@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // 1. Create the connection - Use environment variable for production
 const API = axios.create({
-  baseURL: `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api`,
+  baseURL: `${import.meta.env.VITE_API_URL || 'https://graphurarestrudent.onrender.com'}/api`,
 });
 
 // 2. Security Guard (Attach Token)
