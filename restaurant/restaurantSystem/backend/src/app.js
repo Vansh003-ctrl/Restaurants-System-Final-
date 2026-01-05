@@ -3,7 +3,9 @@ const cors = require("cors");
 // const { apiLimiter } = require('./middleware/rateLimiter.middleware');
 
 const app = express();
+
 app.use(cors());
+
 
 app.use(express.json());
 
