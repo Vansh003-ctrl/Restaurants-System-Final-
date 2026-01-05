@@ -298,7 +298,7 @@ const OrderTracking = () => {
     const fetchOrderStatus = async () => {
       try {
         // Use the ID from the URL to get the latest status
-        const response = await axios.get(`http://localhost:3000/api/orders/${orderId}`, {
+        const response = await axios.get(`/api/orders/${orderId}`, {
            // If you require token for users to track orders, add headers here.
            // For now, assuming tracking is public if you have the ID.
            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }

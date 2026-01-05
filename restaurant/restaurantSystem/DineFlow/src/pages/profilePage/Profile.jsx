@@ -45,7 +45,7 @@ export default function ProfilePage() {
         const token = localStorage.getItem("token");
         if (!token) return;
         
-        const res = await axios.get("http://localhost:3000/api/orders/my-orders", {
+        const res = await axios.get("/api/orders/my-orders", {
           headers: { Authorization: `Bearer ${token}` }
         });
         
@@ -118,7 +118,7 @@ export default function ProfilePage() {
       }
 
       const res = await axios.put(
-        "http://localhost:3000/api/auth/update-profile",
+        "/api/auth/update-profile",
         updateData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -159,7 +159,7 @@ export default function ProfilePage() {
         if (!token) return;
 
         const res = await axios.put(
-          "http://localhost:3000/api/auth/update-profile",
+          "/api/auth/update-profile",
           { profilePhoto: base64Image },
           { headers: { Authorization: `Bearer ${token}` } }
         );

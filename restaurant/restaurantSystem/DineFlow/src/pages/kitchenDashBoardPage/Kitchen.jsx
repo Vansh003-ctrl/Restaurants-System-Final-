@@ -362,7 +362,7 @@ export default function KitchenOrderDashboard() {
         return;
       }
 
-      const response = await axios.get("http://localhost:3000/api/orders/all-orders", {
+      const response = await axios.get("/api/orders/all-orders", {
         headers: { Authorization: `Bearer ${token}` }
       });
 
@@ -415,7 +415,7 @@ export default function KitchenOrderDashboard() {
       const token = localStorage.getItem("token");
 
       await axios.patch(
-        `http://localhost:3000/api/orders/${orderId}/status`,
+        `/api/orders/${orderId}/status`,
         { status: nextStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );

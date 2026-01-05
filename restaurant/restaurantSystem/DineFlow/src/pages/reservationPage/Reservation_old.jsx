@@ -26,7 +26,7 @@ const Reservation = () => {
   const fetchTableStatus = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:3000/api/reservation/status`, {
+      const response = await axios.get(`/api/reservation/status`, {
         params: { date, timeSlot }
       });
 

@@ -96,7 +96,7 @@ const Cart = () => {
           CREATE PAYMENT ORDER
          =========================== */
       const orderRes = await axios.post(
-        "http://localhost:3000/api/payment/create-order",
+        "/api/payment/create-order",
         { amount: totalAmount },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -128,7 +128,7 @@ const Cart = () => {
                 VERIFY PAYMENT
                =========================== */
             const verifyRes = await axios.post(
-              "http://localhost:3000/api/payment/verify-payment",
+              "/api/payment/verify-payment",
               {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,
@@ -199,7 +199,7 @@ const Cart = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/orders/final-order",
+        "/api/orders/final-order",
         payload,
         { headers: { Authorization: `Bearer ${token}` } }
       );

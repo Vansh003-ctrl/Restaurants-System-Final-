@@ -41,7 +41,7 @@ const Reservation = () => {
   const fetchAvailableTimeSlots = async (selectedDate) => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/reservation/available-time-slots`,
+        `/api/reservation/available-time-slots`,
         { params: { date: selectedDate } }
       );
 
@@ -67,7 +67,7 @@ const Reservation = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:3000/api/reservation/table-status`,
+        `/api/reservation/table-status`,
         { params: { date, timeSlot } }
       );
 
@@ -96,7 +96,7 @@ const Reservation = () => {
       if (!token) return;
 
       const response = await axios.get(
-        "http://localhost:3000/api/reservation/my-reservations",
+        "/api/reservation/my-reservations",
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -116,7 +116,7 @@ const Reservation = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.put(
-        `http://localhost:3000/api/reservation/cancel/${id}`,
+        `/api/reservation/cancel/${id}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -151,7 +151,7 @@ const Reservation = () => {
       }
 
       const response = await axios.post(
-        "http://localhost:3000/api/reservation/book",
+        "/api/reservation/book",
         {
           tableNumber: selectedTable.id,
           date,

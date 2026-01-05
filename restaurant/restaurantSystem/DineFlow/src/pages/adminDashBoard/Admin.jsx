@@ -60,7 +60,7 @@ export default function AdminDashboard() {
       const config = { headers: { Authorization: `Bearer ${token}` } };
 
       try {
-        const analyticsRes = await axios.get("http://localhost:3000/api/analytics/dashboard", config);
+        const analyticsRes = await axios.get("/api/analytics/dashboard", config);
         if (analyticsRes.data.success) {
            const s = analyticsRes.data.stats;
            setStats({
@@ -74,14 +74,14 @@ export default function AdminDashboard() {
       } catch (e) { console.error("Analytics error", e); }
 
       try {
-        const ordersRes = await axios.get("http://localhost:3000/api/orders/all-orders", config);
+        const ordersRes = await axios.get("/api/orders/all-orders", config);
         if (ordersRes.data.success) setAllOrders(ordersRes.data.orders);
       } catch (e) { console.error("Orders error", e); }
 
-      const menuRes = await axios.get("http://localhost:3000/api/menu/all");
+      const menuRes = await axios.get("/api/menu/all");
       if (menuRes.data.success) setMenuItems(menuRes.data.data);
 
-      const catRes = await axios.get("http://localhost:3000/api/category/all");
+      const catRes = await axios.get("/api/category/all");
       if (catRes.data.success) {
         setCategories(catRes.data.categories);
         if (catRes.data.categories.length > 0 && !newItem.category) {
@@ -90,18 +90,18 @@ export default function AdminDashboard() {
       }
 
       try {
-        const usersRes = await axios.get("http://localhost:3000/api/auth/users", config);
+        const usersRes = await axios.get("/api/auth/users", config);
         if (usersRes.data.success) setUsers(usersRes.data.users);
       } catch (e) { console.error("Users error", e); }
 
       try {
-        const reservationsRes = await axios.get("http://localhost:3000/api/reservation/all-reservations", config);
+        const reservationsRes = await axios.get("/api/reservation/all-reservations", config);
         if (reservationsRes.data.success) setReservations(reservationsRes.data.reservations);
       } catch (e) { console.error("Reservations error", e); }
 
       // NEW: Fetch Feedback Data
       try {
-        const feedbackRes = await axios.get("http://localhost:3000/api/contact/admin/feedback", config);
+        const feedbackRes = await axios.get("/api/contact/admin/feedback", config);
         if (feedbackRes.data.success) {
           setFeedback(feedbackRes.data.feedback || feedbackRes.data.data);
         }
@@ -123,7 +123,7 @@ export default function AdminDashboard() {
     if(!window.confirm("Delete this item?")) return;
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:3000/api/menu/delete/${id}`, {
+      await axios.delete(`/api/menu/delete/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchData(); 
@@ -134,7 +134,7 @@ export default function AdminDashboard() {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.post("http://localhost:3000/api/menu/add", newItem, { headers: { Authorization: `Bearer ${token}` } });
+      const response = await axios.post("/api/menu/add", newItem, { headers: { Authorization: `Bearer ${token}` } });
       if (response.data.success) {
         setShowAddModal(false);
         setNewItem({ name: "", category: "Appetizers", price: "", description: "", image: "" });
@@ -150,7 +150,7 @@ export default function AdminDashboard() {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.post("http://localhost:3000/api/category/add", 
+      const response = await axios.post("/api/category/add", 
         { name: newCategoryName }, 
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -170,7 +170,7 @@ export default function AdminDashboard() {
     if(!window.confirm("Delete this category?")) return;
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:3000/api/category/delete/${id}`, {
+      await axios.delete(`/api/category/delete/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchData();
@@ -184,7 +184,7 @@ export default function AdminDashboard() {
     try {
       const token = localStorage.getItem("token");
       await axios.patch(
-        `http://localhost:3000/api/orders/${orderId}/status`,
+        `/api/orders/${orderId}/status`,
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -206,7 +206,7 @@ export default function AdminDashboard() {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `http://localhost:3000/api/reservation/update-status/${reservationId}`,
+        `/api/reservation/update-status/${reservationId}`,
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );

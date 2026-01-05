@@ -149,7 +149,7 @@ const Menu = () => {
     const fetchMenu = async () => {
       try {
         // This URL must match your backend route
-        const response = await axios.get('http://localhost:3000/api/menu/all');
+        const response = await axios.get('/api/menu/all');
         
         if (response.data.success) {
           setMenuItems(response.data.data); // Save the DB data to state

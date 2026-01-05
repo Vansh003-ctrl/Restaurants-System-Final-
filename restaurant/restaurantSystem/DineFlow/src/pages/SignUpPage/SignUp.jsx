@@ -149,6 +149,7 @@ import bgImage from "../../assets/bgImage.png";
 import "../../style/SignUpPage/SignUp.css";
 
 const SignUp = () => {
+  
   const navigate = useNavigate();
 
   // STATE: Controls which "screen" the user sees (1 = Details, 2 = OTP)
@@ -203,7 +204,7 @@ const SignUp = () => {
 
       // ADMIN SIGNUP: Direct signup without OTP
       if (isAdminSignup) {
-        const res = await axios.post("http://localhost:3000/api/auth/admin/signup", {
+        const res = await axios.post("/api/auth/admin/signup", {
           email: formData.email,
           password: formData.password,
           name: formData.fullName || "Admin",
@@ -220,7 +221,7 @@ const SignUp = () => {
       }
 
       // REGULAR SIGNUP: Request OTP
-      const res = await axios.post("http://localhost:3000/api/auth/request-otp", {
+      const res = await axios.post("/api/auth/request-otp", {
         email: formData.email,
         name: formData.fullName || "User",
         phone: formData.phone
@@ -252,7 +253,7 @@ const SignUp = () => {
       }
 
       // AXIOS CALL: Talks to your backend 'verifyOTP' function
-      const res = await axios.post("http://localhost:3000/api/auth/verify-otp", {
+      const res = await axios.post("/api/auth/verify-otp", {
         email: formData.email,
         otp: formData.otp,
         password: formData.password,

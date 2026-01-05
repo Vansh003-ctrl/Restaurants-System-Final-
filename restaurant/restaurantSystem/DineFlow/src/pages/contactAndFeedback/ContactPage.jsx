@@ -27,7 +27,7 @@ export default function ContactPage() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/contact",
+        "/api/contact",
         formData
       );
 
