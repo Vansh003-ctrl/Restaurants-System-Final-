@@ -14,16 +14,16 @@
 //   const [selectedCategory, setSelectedCategory] = useState('All');
 //   const [sortBy, setSortBy] = useState('popularity');
 //   const [selectedItem, setSelectedItem] = useState(null);
-  
+
 //   // Filter and Sort Logic
 //   const filteredItems = useMemo(() => {
 //     let items = menuItems;
-    
+
 //     // Filter by category
 //     if (selectedCategory !== 'All') {
 //       items = items.filter(item => item.category === selectedCategory);
 //     }
-    
+
 //     // Filter by search query
 //     if (searchQuery) {
 //       items = items.filter(item =>
@@ -31,7 +31,7 @@
 //         item.description.toLowerCase().includes(searchQuery.toLowerCase())
 //       );
 //     }
-    
+
 //     // Sort items
 //     items = [...items].sort((a, b) => {
 //       switch (sortBy) {
@@ -46,16 +46,16 @@
 //           return b.popularity - a.popularity;
 //       }
 //     });
-    
+
 //     return items;
 //   }, [searchQuery, selectedCategory, sortBy]);
-  
+
 //   const handleAddToCart = (item) => {
 //     addToCart(item);
 //     // Show toast notification
 //     addToast(`${item.name} added to cart!`, 'cart');
 //   };
-  
+
 //   return (
 //     <div className="menu-container">
 //       <div className="menu-content">
@@ -66,7 +66,7 @@
 //             Explore a wide selection of dishes crafted with the freshest ingredients.
 //           </p>
 //         </div>
-        
+
 //         {/* Filter Bar */}
 //         <FilterBar
 //           searchQuery={searchQuery}
@@ -76,14 +76,14 @@
 //           sortBy={sortBy}
 //           setSortBy={setSortBy}
 //         />
-        
+
 //         {/* Results Count */}
 //         <div className="results-count">
 //           <p className="results-text">
 //             Showing <span className="results-number">{filteredItems.length}</span> dishes
 //           </p>
 //         </div>
-        
+
 //         {/* Food Grid */}
 //         {filteredItems.length > 0 ? (
 //           <div className="food-grid">
@@ -103,7 +103,7 @@
 //             <p className="no-results-text">Try adjusting your search or filter criteria</p>
 //           </div>
 //         )}
-        
+
 //         {/* Quick View Modal */}
 //         {selectedItem && (
 //           <QuickViewModal
@@ -119,29 +119,29 @@
 
 // export default Menu;
 
-import React, { useState, useMemo, useEffect } from 'react'; // 1. Import useEffect
-import axios from 'axios'; // 2. Import Axios
-import { useCart } from '../../context/CartContext.jsx';
-import { useToast } from '../../components/ToastContainer';
-import '../../style/MenuPage/Menu.css';
-import FoodCard from '../MenuPage/Components/FoodCard';
-import QuickViewModal from '../MenuPage/Components/QuickViewModal';
-import FilterBar from './Components/FilterBar.jsx';
+import React, { useState, useMemo, useEffect } from "react"; // 1. Import useEffect
+import axios from "axios"; // 2. Import Axios
+import { useCart } from "../../context/CartContext.jsx";
+import { useToast } from "../../components/ToastContainer";
+import "../../style/MenuPage/Menu.css";
+import FoodCard from "../MenuPage/Components/FoodCard";
+import QuickViewModal from "../MenuPage/Components/QuickViewModal";
+import FilterBar from "./Components/FilterBar.jsx";
 
-// DELETE THIS LINE: import { menuItems } from './Components/menuData.js'; 
+// DELETE THIS LINE: import { menuItems } from './Components/menuData.js';
 
 const Menu = () => {
   const { addToCart } = useCart();
   const { addToast } = useToast();
-  
-  // 3. NEW STATE: To store data from Backend
-  const [menuItems, setMenuItems] = useState([]); 
-  const [loading, setLoading] = useState(true); // To show loading screen
-  const [error, setError] = useState(null);     // To show errors
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [sortBy, setSortBy] = useState('popularity');
+  // 3. NEW STATE: To store data from Backend
+  const [menuItems, setMenuItems] = useState([]);
+  const [loading, setLoading] = useState(true); // To show loading screen
+  const [error, setError] = useState(null); // To show errors
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [sortBy, setSortBy] = useState("popularity");
   const [selectedItem, setSelectedItem] = useState(null);
 
   // 4. FETCH DATA: This runs once when the page loads
@@ -149,8 +149,8 @@ const Menu = () => {
     const fetchMenu = async () => {
       try {
         // This URL must match your backend route
-        const response = await axios.get('/api/menu/all');
-        
+        const response = await axios.get("/api/menu/all");
+
         if (response.data.success) {
           setMenuItems(response.data.data); // Save the DB data to state
         }
@@ -171,72 +171,79 @@ const Menu = () => {
     if (loading) return [];
 
     let items = menuItems; // Now using the State variable, not the imported file
-    
+
     // Filter by category
-    if (selectedCategory !== 'All') {
-      items = items.filter(item => item.category === selectedCategory);
+    if (selectedCategory !== "All") {
+      items = items.filter((item) => item.category === selectedCategory);
     }
-    
+
     // Filter by search query
     if (searchQuery) {
-      items = items.filter(item =>
-        item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.description.toLowerCase().includes(searchQuery.toLowerCase())
+      items = items.filter(
+        (item) =>
+          item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          item.description.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
-    
+
     // Sort items
     items = [...items].sort((a, b) => {
       switch (sortBy) {
-        case 'priceLowHigh':
+        case "priceLowHigh":
           return a.price - b.price;
-        case 'priceHighLow':
+        case "priceHighLow":
           return b.price - a.price;
-        case 'rating':
+        case "rating":
           return (b.rating || 0) - (a.rating || 0); // Handle missing ratings
-        case 'popularity':
+        case "popularity":
         default:
           return (b.popularity || 0) - (a.popularity || 0);
       }
     });
-    
+
     return items;
   }, [searchQuery, selectedCategory, sortBy, menuItems, loading]);
-  
+
   const handleAddToCart = (item) => {
     addToCart(item);
-    addToast(`${item.name} added to cart!`, 'cart');
+    addToast(`${item.name} added to cart!`, "cart");
   };
-  
+
   // 6. LOADING & ERROR STATES
   if (loading) {
     return (
       <div className="menu-container">
-        <div className="menu-loading" style={{ textAlign: 'center', padding: '100px 20px' }}>
-          <div style={{ fontSize: '48px', marginBottom: '20px' }}>🍽️</div>
+        <div
+          className="menu-loading"
+          style={{ textAlign: "center", padding: "100px 20px" }}
+        >
+          <div style={{ fontSize: "48px", marginBottom: "20px" }}>🍽️</div>
           <h2>Loading delicious dishes...</h2>
-          <p style={{ color: '#666' }}>Please wait while we fetch the menu</p>
+          <p style={{ color: "#666" }}>Please wait while we fetch the menu</p>
         </div>
       </div>
     );
   }
-  
+
   if (error) {
     return (
       <div className="menu-container">
-        <div className="menu-error" style={{ textAlign: 'center', padding: '100px 20px' }}>
-          <div style={{ fontSize: '48px', marginBottom: '20px' }}>⚠️</div>
-          <h2 style={{ color: '#e74c3c' }}>Unable to Load Menu</h2>
-          <p style={{ color: '#666', marginBottom: '20px' }}>{error}</p>
-          <button 
-            onClick={() => window.location.reload()} 
-            style={{ 
-              padding: '10px 20px', 
-              backgroundColor: '#3498db', 
-              color: 'white', 
-              border: 'none', 
-              borderRadius: '5px', 
-              cursor: 'pointer' 
+        <div
+          className="menu-error"
+          style={{ textAlign: "center", padding: "100px 20px" }}
+        >
+          <div style={{ fontSize: "48px", marginBottom: "20px" }}>⚠️</div>
+          <h2 style={{ color: "#e74c3c" }}>Unable to Load Menu</h2>
+          <p style={{ color: "#666", marginBottom: "20px" }}>{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            style={{
+              padding: "10px 20px",
+              backgroundColor: "#3498db",
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
             }}
           >
             Try Again
@@ -250,13 +257,21 @@ const Menu = () => {
     <div className="menu-container">
       <div className="menu-content">
         {/* Header */}
-        <div className="menu-header">
-          <h1 className="menu-title">Our Delicious Menu</h1>
-          <p className="menu-subtitle">
-            Explore a wide selection of dishes crafted with the freshest ingredients.
+
+        {/* Hero Section */}
+              <section className="menu-hero" aria-label="Page Header">
+        <div className="menu-hero-overlay">
+          <h1 className="hero-title">🍽️ Our Menu</h1>
+
+          <p className="hero-subtitle">
+            Discover a world of flavors crafted with fresh ingredients and expert care.
           </p>
         </div>
-        
+      </section>
+
+        {/* Hero Section */}
+
+
         {/* Filter Bar */}
         <FilterBar
           searchQuery={searchQuery}
@@ -266,21 +281,23 @@ const Menu = () => {
           sortBy={sortBy}
           setSortBy={setSortBy}
         />
-        
+
         {/* Results Count */}
         <div className="results-count">
           <p className="results-text">
-            Showing <span className="results-number">{filteredItems.length}</span> dishes
+            Showing{" "}
+            <span className="results-number">{filteredItems.length}</span>{" "}
+            dishes
           </p>
         </div>
-        
+
         {/* Food Grid */}
         {filteredItems.length > 0 ? (
           <div className="food-grid">
             {filteredItems.map((item) => (
               <FoodCard
                 // MongoDB uses '_id', not 'id'. This is a CRITICAL fix.
-                key={item._id} 
+                key={item._id}
                 item={item}
                 onQuickView={setSelectedItem}
                 onAddToCart={handleAddToCart}
@@ -291,10 +308,12 @@ const Menu = () => {
           <div className="no-results">
             <div className="no-results-icon">🍽️</div>
             <h3 className="no-results-title">No dishes found</h3>
-            <p className="no-results-text">Try adjusting your search or filter criteria</p>
+            <p className="no-results-text">
+              Try adjusting your search or filter criteria
+            </p>
           </div>
         )}
-        
+
         {/* Quick View Modal */}
         {selectedItem && (
           <QuickViewModal

@@ -1,35 +1,50 @@
-import React, { useState } from "react";
+import React from "react";
 import { useCart } from "../../../context/CartContext.jsx";
 import { Plus, Minus, ShoppingCart } from "lucide-react";
+import { useNavigate } from "react-router-dom"; // 1. Import useNavigate
 import "../../../style/MenuPage/FoodCard.css";
 import CategoryBadge from "./CategoryBadge.jsx";
 
 const FoodCard = ({ item, onQuickView, onAddToCart }) => {
   const { cartItems, updateQuantity, removeFromCart } = useCart();
-  
-  // Check if item is in cart - Using _id for MongoDB compatibility
-  const itemId = item._id || item.id; // Support both MongoDB and local IDs
+  const navigate = useNavigate(); // 2. Initialize navigate
+
+  // Check if item is in cart
+  const itemId = item._id || item.id;
   const cartItem = cartItems.find((cartItem) => (cartItem._id || cartItem.id) === itemId);
   const quantityInCart = cartItem ? cartItem.quantity : 0;
 
+  // 3. Helper function to check login
+  const checkAuthAndExecute = (action) => {
+    const token = localStorage.getItem("token"); // Or use your AuthContext status
+    if (!token) {
+      alert("Please login to add items to your cart!");
+      navigate("/login"); // Adjust the path to your login route
+      return;
+    }
+    action();
+  };
+
   const handleIncrease = (e) => {
     e.stopPropagation();
-    if (quantityInCart === 0) {
-      // First time adding
-      onAddToCart(item);
-    } else {
-      // Already in cart, just increase
-      updateQuantity(itemId, quantityInCart + 1);
-    }
+    checkAuthAndExecute(() => {
+      if (quantityInCart === 0) {
+        onAddToCart(item);
+      } else {
+        updateQuantity(itemId, quantityInCart + 1);
+      }
+    });
   };
 
   const handleDecrease = (e) => {
     e.stopPropagation();
-    if (quantityInCart === 1) {
-      removeFromCart(itemId);
-    } else {
-      updateQuantity(itemId, quantityInCart - 1);
-    }
+    checkAuthAndExecute(() => {
+      if (quantityInCart === 1) {
+        removeFromCart(itemId);
+      } else {
+        updateQuantity(itemId, quantityInCart - 1);
+      }
+    });
   };
 
   return (
@@ -65,14 +80,12 @@ const FoodCard = ({ item, onQuickView, onAddToCart }) => {
 
         <div className="food-card-footer">
           <span className="food-card-price">₹{item.price}</span>
-          <div className="food-card-time">
-          </div>
         </div>
 
         <div className="food-card-actions">
           {quantityInCart === 0 ? (
             <button 
-              onClick={() => onAddToCart(item)} 
+              onClick={handleIncrease} // Updated to use the check
               className="btn-add-cart"
             >
               <ShoppingCart size={18} color="white"/>
