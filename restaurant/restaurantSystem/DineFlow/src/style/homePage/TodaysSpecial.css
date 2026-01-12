@@ -181,3 +181,63 @@
     flex-direction: row;
   }
 }
+
+
+/* Container to handle centering and spacing */
+.specials-view-more-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 50px; /* Space after the food grid */
+  padding-bottom: 20px;
+}
+
+/* Consistent button style */
+.specials-view-more-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);; /* Using your signature blue */
+  color: #ffffff;
+  padding: 16px 36px;
+  border-radius: 16px; /* Matches your auth-btn and card radius */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 25px rgba(75, 93, 255, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover Effects */
+.specials-view-more-btn:hover {
+
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(75, 93, 255, 0.4);
+}
+
+/* Active/Click state */
+.specials-view-more-btn:active {
+  transform: translateY(-1px);
+}
+
+/* Arrow animation on hover */
+.specials-view-more-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.specials-view-more-btn:hover svg {
+  transform: translateX(5px); /* Arrow moves slightly right on hover */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+  .specials-view-more-btn {
+    width: 90%; /* Almost full width on mobile */
+    justify-content: center;
+    padding: 14px 24px;
+  }
+}

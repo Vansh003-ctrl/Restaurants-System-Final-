@@ -1,40 +1,46 @@
-import React from 'react';
-import '../../style/homePage/TodaysSpecial.css';
+import React from "react";
+import "../../style/homePage/TodaysSpecial.css";
 import { useCart } from "../../context/CartContext.jsx";
-import { Plus, Minus, ShoppingCart } from "lucide-react";
+import { Plus, Minus, ShoppingCart, ArrowRight } from "lucide-react"; // Added ArrowRight for style
+import { useNavigate } from "react-router-dom"; // 1. Import useNavigate
 
 const TodaysMenu = () => {
   const { cartItems, addToCart, updateQuantity, removeFromCart } = useCart();
+  const navigate = useNavigate(); // 2. Initialize navigate
 
   const specialFood = [
     {
       id: 1001,
-      image: 'https://plus.unsplash.com/premium_photo-1664391779617-c81011293ef6?w=900&auto=format&fit=crop&q=60',
-      title: 'Crispy Fried Chicken Burger',
-      description: 'A crunchy delight with fresh veggies and signature mayo.',
-      price: 250
+      image:
+        "https://plus.unsplash.com/premium_photo-1664391779617-c81011293ef6?w=900&auto=format&fit=crop&q=60",
+      title: "Crispy Fried Chicken Burger",
+      description: "A crunchy delight with fresh veggies and signature mayo.",
+      price: 250,
     },
     {
       id: 1002,
-      image: 'https://i.pinimg.com/1200x/4a/af/5c/4aaf5cb2f245c0ff2505a36237c0d02a.jpg',
-      title: 'Signature Seafood Pasta',
-      description: 'Classic Italian pasta with fresh seafood flavors.',
-      price: 1250
+      image:
+        "https://i.pinimg.com/1200x/4a/af/5c/4aaf5cb2f245c0ff2505a36237c0d02a.jpg",
+      title: "Signature Seafood Pasta",
+      description: "Classic Italian pasta with fresh seafood flavors.",
+      price: 1250,
     },
     {
       id: 1003,
-      image: 'https://i.pinimg.com/736x/ab/e6/57/abe65721a6d06545c99230151aab0177.jpg',
-      title: 'Gourmet Vegetarian Pizza',
-      description: 'Loaded with veggies, cheese, and Italian herbs.',
-      price: 1000
+      image:
+        "https://i.pinimg.com/736x/ab/e6/57/abe65721a6d06545c99230151aab0177.jpg",
+      title: "Gourmet Vegetarian Pizza",
+      description: "Loaded with veggies, cheese, and Italian herbs.",
+      price: 1000,
     },
     {
       id: 1004,
-      image: 'https://i.pinimg.com/1200x/0c/e1/4e/0ce14e1ef631166a411c20a62f32618f.jpg',
-      title: 'Chocolate Lava Cake',
-      description: 'Molten chocolate with soft sponge sweetness.',
-      price: 675
-    }
+      image:
+        "https://i.pinimg.com/1200x/0c/e1/4e/0ce14e1ef631166a411c20a62f32618f.jpg",
+      title: "Chocolate Lava Cake",
+      description: "Molten chocolate with soft sponge sweetness.",
+      price: 675,
+    },
   ];
 
   const getQuantity = (id) => {
@@ -45,11 +51,11 @@ const TodaysMenu = () => {
   const handleAdd = (item) => {
     addToCart({
       id: item.id,
-      _id: item.id, // Keep both for compatibility
+      _id: item.id,
       name: item.title,
       image: item.image,
       price: item.price,
-      quantity: 1
+      quantity: 1,
     });
   };
 
@@ -77,7 +83,7 @@ const TodaysMenu = () => {
             return (
               <div key={item.id} className="special-card">
                 <img src={item.image} alt={item.title} />
-                
+
                 {qty > 0 && (
                   <div className="special-in-cart-badge">
                     <ShoppingCart size={14} />
@@ -92,18 +98,18 @@ const TodaysMenu = () => {
                   <span>₹{item.price}</span>
 
                   {qty === 0 ? (
-                    <button 
+                    <button
                       className="special-add-btn"
                       onClick={() => handleAdd(item)}
                     >
                       <div className="flexx">
-                      <ShoppingCart size={16} color='white' /> 
-                      Add to Cart
+                        <ShoppingCart size={16} color="white" />
+                        Add to Cart
                       </div>
                     </button>
                   ) : (
                     <div className="special-quantity-box">
-                      <button 
+                      <button
                         className="q-btn"
                         onClick={() => handleDecrease(item.id, qty)}
                       >
@@ -112,7 +118,7 @@ const TodaysMenu = () => {
 
                       <span className="q-display">{qty}</span>
 
-                      <button 
+                      <button
                         className="q-btn"
                         onClick={() => handleIncrease(item.id, qty)}
                       >
@@ -124,6 +130,17 @@ const TodaysMenu = () => {
               </div>
             );
           })}
+        </div>
+
+        {/* 3. VIEW MORE BUTTON SECTION */}
+        <div className="specials-view-more-wrapper">
+          <button
+            className="specials-view-more-btn"
+            onClick={() => navigate("/menu")}
+          >
+            <span>Explore Full Menu</span>
+            <ArrowRight size={20} />
+          </button>
         </div>
       </section>
     </div>

@@ -9,13 +9,19 @@ const fallbackMenuData = [
     category: "Appetizers",
     price: 149,
     description: "Crispy vegetable spring rolls served with sweet chili sauce",
-image: "https://images.unsplash.com/photo-1573140401552-3fab0b24306f?w=400",
+    image: "https://images.unsplash.com/photo-1573140401552-3fab0b24306f?w=400",
     isAvailable: true,
     rating: 4.5,
     prepTime: "15 mins",
     calories: "280",
-    ingredients: ["Cabbage", "Carrots", "Spring Onions", "Soy Sauce", "Wrapper"],
-    popularity: 85
+    ingredients: [
+      "Cabbage",
+      "Carrots",
+      "Spring Onions",
+      "Soy Sauce",
+      "Wrapper",
+    ],
+    popularity: 85,
   },
   {
     _id: "temp2",
@@ -24,7 +30,7 @@ image: "https://images.unsplash.com/photo-1573140401552-3fab0b24306f?w=400",
     price: 99,
     description: "Toasted bread with garlic butter and herbs",
     image: "https://images.unsplash.com/photo-1573140401552-3fab0b24306f?w=400",
-    isAvailable: true
+    isAvailable: true,
   },
   {
     _id: "temp3",
@@ -33,7 +39,7 @@ image: "https://images.unsplash.com/photo-1573140401552-3fab0b24306f?w=400",
     price: 249,
     description: "Spicy chicken wings with ranch dip",
     image: "https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=400",
-    isAvailable: true
+    isAvailable: true,
   },
 
   // Main Courses
@@ -43,8 +49,9 @@ image: "https://images.unsplash.com/photo-1573140401552-3fab0b24306f?w=400",
     category: "Main Courses",
     price: 299,
     description: "Classic pizza with tomato sauce, mozzarella, and fresh basil",
-    image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=400",
-    isAvailable: true
+    image:
+      "https://media.istockphoto.com/id/1048400936/photo/whole-italian-pizza-on-wooden-table-with-ingredients.jpg?s=612x612&w=0&k=20&c=_1GwSXSjFeC06w3MziyeqRk5Lx-FMXUZzCpxEOoHyzQ=",
+    isAvailable: true,
   },
   {
     _id: "temp5",
@@ -53,7 +60,7 @@ image: "https://images.unsplash.com/photo-1573140401552-3fab0b24306f?w=400",
     price: 349,
     description: "Aromatic basmati rice with tender chicken and spices",
     image: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=400",
-    isAvailable: true
+    isAvailable: true,
   },
   {
     _id: "temp6",
@@ -62,7 +69,7 @@ image: "https://images.unsplash.com/photo-1573140401552-3fab0b24306f?w=400",
     price: 279,
     description: "Cottage cheese in rich tomato gravy with butter",
     image: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400",
-    isAvailable: true
+    isAvailable: true,
   },
 
   // Desserts
@@ -71,9 +78,10 @@ image: "https://images.unsplash.com/photo-1573140401552-3fab0b24306f?w=400",
     name: "Chocolate Lava Cake",
     category: "Desserts",
     price: 149,
-    description: "Warm chocolate cake with molten center, served with vanilla ice cream",
+    description:
+      "Warm chocolate cake with molten center, served with vanilla ice cream",
     image: "https://images.unsplash.com/photo-1624353365286-3f8d62daad51?w=400",
-    isAvailable: true
+    isAvailable: true,
   },
   {
     _id: "temp8",
@@ -82,7 +90,7 @@ image: "https://images.unsplash.com/photo-1573140401552-3fab0b24306f?w=400",
     price: 179,
     description: "Classic Italian dessert with coffee and mascarpone",
     image: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400",
-    isAvailable: true
+    isAvailable: true,
   },
 
   // Beverages
@@ -93,7 +101,7 @@ image: "https://images.unsplash.com/photo-1573140401552-3fab0b24306f?w=400",
     price: 99,
     description: "Creamy yogurt drink with mango pulp",
     image: "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?w=400",
-    isAvailable: true
+    isAvailable: true,
   },
   {
     _id: "temp10",
@@ -102,8 +110,8 @@ image: "https://images.unsplash.com/photo-1573140401552-3fab0b24306f?w=400",
     price: 119,
     description: "Chilled coffee with ice cream and chocolate",
     image: "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=400",
-    isAvailable: true
-  }
+    isAvailable: true,
+  },
 ];
 
 module.exports = fallbackMenuData;
